@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portrait Values Questionnaire (PVQ)</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Welcome Page -->
+        <div id="welcome-page" class="page active">
+            <div class="welcome-content">
+                <h1>Portrait Values Questionnaire (PVQ)</h1>
+                <p>Welcome to the Portrait Values Questionnaire (PVQ). This questionnaire will help you understand your personal values and how they influence your behavior and decisions.</p>
+                <p>The PVQ consists of 40 questions that measure 4 basic value categories:</p>
+                
+                <div class="value-categories">
+                    <div class="value-category">
+                        <h3>Self-transcendence</h3>
+                        <ul>
+                            <li><strong>Benevolence:</strong> Preserving and enhancing the welfare of those with whom one is in frequent personal contact (the 'in-group')</li>
+                            <li><strong>Universalism:</strong> Understanding, appreciation, tolerance, and protection for the welfare of all people and for nature</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="value-category">
+                        <h3>Conservation</h3>
+                        <ul>
+                            <li><strong>Security:</strong> Safety, harmony, and stability of society, of relationships, and of self</li>
+                            <li><strong>Conformity:</strong> Restraint of actions, inclinations, and impulses likely to upset or harm others and violate social expectations or norms</li>
+                            <li><strong>Tradition:</strong> Respect, commitment, and acceptance of the customs and ideas that one's culture or religion provides</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="value-category">
+                        <h3>Self-enhancement</h3>
+                        <ul>
+                            <li><strong>Achievement:</strong> Personal success through demonstrating competence according to social standards</li>
+                            <li><strong>Power:</strong> Social status and prestige, control or dominance over people and resources</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="value-category">
+                        <h3>Openness to change</h3>
+                        <ul>
+                            <li><strong>Self-Direction:</strong> Independent thought and action, choosing, creating, exploring</li>
+                            <li><strong>Stimulation:</strong> Excitement, novelty, and challenge in life</li>
+                            <li><strong>Hedonism:</strong> Pleasure or sensual gratification for oneself</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <p>For each question, indicate how much the person described is like you.</p>
+                <button id="start-button" class="button">Start Questionnaire</button>
+            </div>
+        </div>
+
+        <!-- Questionnaire Page -->
+        <div id="questionnaire-page" class="page">
+            <div class="progress-bar">
+                <div id="progress-fill"></div>
+                <span id="progress-text">Question 1 of 40</span>
+            </div>
+            
+            <div class="question-container">
+                <h2 id="question-text"></h2>
+                <div id="likert-scale" class="likert-scale"></div>
+            </div>
+            
+            <div class="navigation-buttons">
+                <button id="prev-button" class="button" disabled>Previous</button>
+                <button id="next-button" class="button" disabled>Next</button>
+            </div>
+        </div>
+
+        <!-- Results Page -->
+        <div id="results-page" class="page">
+            <h2>Your Value Profile</h2>
+            <div id="chart-container"></div>
+            <div id="interpretations"></div>
+            <div class="results-actions">
+                <button id="download-pdf-button" class="button">Download Results as PDF</button>
+                <button id="know-values-button" class="button">Know Your Values</button>
+                <button id="restart-button" class="button">Restart Questionnaire</button>
+            </div>
+        </div>
+        
+        <!-- Values Information Page -->
+        <div id="values-info-page" class="page">
+            <h2>Understanding Your Values</h2>
+            <div class="values-info-content">
+                <div class="value-category">
+                    <h3>Openness to Change</h3>
+                    <div class="value-item">
+                        <h4>Self-Direction</h4>
+                        <p>Valuing independent thought, freedom, creativity, and curiosity. It stems from a need for autonomy, self-exploration, and choosing one's own path in life.</p>
+                    </div>
+                    <div class="value-item">
+                        <h4>Stimulation</h4>
+                        <p>Seeking excitement, variety, and new challenges to stay mentally and emotionally engaged. Driven by the need to maintain a vibrant, energized life.</p>
+                    </div>
+                    <div class="value-item">
+                        <h4>Hedonism</h4>
+                        <p>Pursuing pleasure, enjoyment, and personal gratification. Focuses on satisfying one's desires and indulging in life's pleasures without harm.</p>
+                    </div>
+                </div>
+                
+                <div class="value-category">
+                    <h3>Self-enhancement</h3>
+                    <div class="value-item">
+                        <h4>Achievement</h4>
+                        <p>Striving for personal success through competence and goal attainment that meets societal standards. Involves ambition, capability, and a drive for excellence.</p>
+                    </div>
+                    <div class="value-item">
+                        <h4>Power</h4>
+                        <p>Desiring control, influence, and social prestige. Emphasizes gaining and maintaining authority, wealth, or dominance within social structures.</p>
+                    </div>
+                </div>
+                
+                <div class="value-category">
+                    <h3>Conservation</h3>
+                    <div class="value-item">
+                        <h4>Security</h4>
+                        <p>Prioritizing safety, stability, and harmony in personal life, relationships, and society. Reflects a desire for predictability, order, and protection from threats.</p>
+                    </div>
+                    <div class="value-item">
+                        <h4>Conformity</h4>
+                        <p>Adhering to social norms and expectations by exercising self-restraint. Encourages politeness, obedience, and responsibility to avoid conflict or disapproval.</p>
+                    </div>
+                    <div class="value-item">
+                        <h4>Tradition</h4>
+                        <p>Honoring and accepting cultural or religious customs and long-standing practices. Reflects loyalty to one's heritage, values, and social identity.</p>
+                    </div>
+                </div>
+                
+                <div class="value-category">
+                    <h3>Self-transcendence</h3>
+                    <div class="value-item">
+                        <h4>Benevolence</h4>
+                        <p>Caring for and enhancing the welfare of close others through helpfulness, loyalty, and honesty. Motivated by a genuine concern for people's well-being.</p>
+                    </div>
+                    <div class="value-item">
+                        <h4>Universalism</h4>
+                        <p>Promoting justice, equality, and protection for all people and the environment. Encourages tolerance, broad-mindedness, and global interconnectedness.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="values-info-actions">
+                <button id="back-to-results-button" class="button">Back to Results</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
